@@ -94,7 +94,7 @@ impl IsingModel {
             let i: usize = rand::thread_rng().gen_range(0..self.size);
             let j: usize = rand::thread_rng().gen_range(0..self.size);
             let delta_e = self.compute_delta_energy(i, j);
-            if delta_e < 0.0 || (-delta_e * self.beta).exp() > rand::random() {
+            if delta_e < 0.0 || (-delta_e * self.beta).exp() > rand::random::<f64>() {
                 self.lattice[i][j] *= -1;
             }
         }
@@ -105,7 +105,7 @@ impl IsingModel {
         for i in 0..self.size {
             for j in 0..self.size {
                 let delta_e = self.compute_delta_energy(i, j);
-                if delta_e < 0.0 || (-delta_e * self.beta).exp() > rand::random() {
+                if delta_e < 0.0 || (-delta_e * self.beta).exp() > rand::random::<f64>() {
                     self.lattice[i][j] *= -1;
                 }
             }
