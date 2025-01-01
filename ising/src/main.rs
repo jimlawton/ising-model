@@ -111,11 +111,11 @@ impl IsingModel {
     }
 
     /// Run the simulated model for a number of sweeps, and store average magnetization and energy.
-    pub fn simulate(&self, num_sweeps: usize) -> (f64, f64, f64, f64) {
-        let magnetizations = Vec::<i32>::new();
-        let mag_squares = Vec::<f64>::new();
-        let energies = Vec::<f64>::new();
-        let energy_squares = Vec::<f64>::new();
+    pub fn simulate(&mut self, num_sweeps: usize) -> (f64, f64, f64, f64) {
+        let mut magnetizations = Vec::<i32>::new();
+        let mut mag_squares = Vec::<f64>::new();
+        let mut energies = Vec::<f64>::new();
+        let mut energy_squares = Vec::<f64>::new();
         for _ in 0..num_sweeps {
             self.sweep();
             let mag = self.magnetization();
