@@ -76,7 +76,7 @@ impl IsingModel {
                 let spin = self.lattice[i][j];
                 let neighbors =
                     self.lattice[(i + 1) % self.size][j] + self.lattice[i][(j + 1) % self.size];
-                energy -= spin * neighbors + self.h * spin;
+                energy -= (spin * neighbors) as f64 + self.h * (spin as f64);
             }
         }
         energy
