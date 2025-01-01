@@ -130,9 +130,9 @@ impl IsingModel {
         let exp_energy = float_mean(&energies);
         let exp_ensquare = float_mean(&energy_squares);
 
-        let magnetic_susceptibility = (exp_magsquare - exp_mag.pow(2)) * self.beta;
+        let magnetic_susceptibility = (exp_magsquare - exp_mag.powf(2.0)) * self.beta;
         let heat_capacity =
-            (exp_ensquare - exp_energy.pow(2)) * self.beta.powf(2.0) / self.size.pow(2);
+            (exp_ensquare - exp_energy.powf(2.0)) * self.beta.powf(2.0) / (self.size.pow(2) as f64);
 
         (exp_mag, exp_energy, magnetic_susceptibility, heat_capacity)
     }
