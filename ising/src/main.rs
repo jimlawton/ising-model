@@ -38,9 +38,12 @@ impl IsingModel {
     /// Constructor.
     // NOTE: assumes a square lattice matrix.
     pub fn new(size: &usize, temperature: &f64, h: &f64) -> Self {
-        let is_plus: bool = rand::random();
-        let lattice_value = if is_plus { 1 } else { -1 };
-        let lattice = vec![vec![lattice_value; *size]; *size];
+        let mut lattice: Vec<Vec<i32>> = vec![vec![1; *size]; *size];
+        for row in &mut lattice {
+            for col in row {
+                *col = if rand::random::<bool>() { 1 } else { -1 }
+            }
+        }
         let beta = 1.0 / temperature;
         IsingModel {
             size: *size,
