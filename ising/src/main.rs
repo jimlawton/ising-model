@@ -38,6 +38,12 @@ impl IsingModel {
     /// Constructor.
     // NOTE: assumes a square lattice matrix.
     pub fn new(size: &usize, temperature: &f64, h: &f64) -> Self {
+        if *size == 0 {
+            panic!("ERROR: size must be greater than 0!");
+        }
+        if *temperature == 0.0 {
+            panic!("ERROR: temperature must be greater than 0 K!");
+        }
         let mut lattice: Vec<Vec<i32>> = vec![vec![1; *size]; *size];
         for row in &mut lattice {
             for col in row {
