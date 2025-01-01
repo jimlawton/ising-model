@@ -166,8 +166,8 @@ impl Display for IsingModel {
 pub fn main() {
     println!("Ising model...");
     let size = 10;
-    let temperature = 2.0;
-    let h = 1.0;
+    let temperature = 1.0;
+    let h = 0.0;
     let mut model = IsingModel::new(&size, &temperature, &h);
 
     println!("{}", model);
