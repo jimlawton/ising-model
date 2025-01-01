@@ -71,8 +71,8 @@ impl IsingModel {
     /// Calculate the energy of the lattice.
     pub fn energy(&self) -> f64 {
         let mut energy = 0.0;
-        for i in (0..self.size) {
-            for j in (0..self.size) {
+        for i in 0..self.size {
+            for j in 0..self.size {
                 let spin = self.lattice[i][j];
                 let neighbors =
                     self.lattice[(i + 1) % self.size][j] + self.lattice[i][(j + 1) % self.size];
@@ -88,7 +88,7 @@ impl IsingModel {
 
     /// Perform a single Metropolis step.
     pub fn step(&mut self) {
-        for _ in (0..self.size.pow(2)) {
+        for _ in 0..self.size.pow(2) {
             let i: usize = rand::thread_rng().gen_range(0..self.size);
             let j: usize = rand::thread_rng().gen_range(0..self.size);
             let delta_e = self.compute_delta_energy(i, j);
@@ -100,8 +100,8 @@ impl IsingModel {
 
     /// Sweep over the lattice such that all points are flipped.
     pub fn sweep(&mut self) {
-        for i in (0..self.size) {
-            for j in (0..self.size) {
+        for i in 0..self.size {
+            for j in 0..self.size {
                 let delta_e = self.compute_delta_energy(i, j);
                 if delta_e < 0.0 || (-delta_e * self.beta).exp() > rand::random() {
                     self.lattice[i][j] *= -1;
@@ -116,7 +116,7 @@ impl IsingModel {
         let mag_squares = Vec::<f64>::new();
         let energies = Vec::<f64>::new();
         let energy_squares = Vec::<f64>::new();
-        for _ in (0..num_sweeps) {
+        for _ in 0..num_sweeps {
             self.sweep();
             let mag = self.magnetization();
             let energy = self.energy();
