@@ -2,7 +2,7 @@ use std::fmt::Display;
 
 use rand::Rng; // Need the Rng trait.
 
-const NUM_SWEEPS: usize = 1500;
+const NUM_SWEEPS: usize = 15000;
 
 /// Calculate the mean of an integer array.
 fn int_mean(array: &[i32]) -> f64 {
