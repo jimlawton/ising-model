@@ -174,4 +174,26 @@ pub fn main() {
     println!("Mean energy: {}", mean_energy);
     println!("Magnetic susceptibility: {}", susceptibility);
     println!("Heat capacity: {}", heat_capacity);
+
+    // Determine how many sweeps were required for convergence.
+    let mut mag_array = vec![];
+    let mut energy_array = vec![];
+    let mut susc_array = vec![];
+    let mut heat_array = vec![];
+    let sweeps: Vec<usize> = (100..=1000)
+        .step_by(100)
+        .chain((2000..=10000).step_by(1000))
+        .collect();
+    for num_sweeps in sweeps {
+        println!("Simulating with {num_sweeps} sweeps...");
+        let (mean_mag, mean_energy, susceptibility, heat_capacity) = model.simulate(num_sweeps);
+        mag_array.append(&mut vec![mean_mag]);
+        energy_array.append(&mut vec![mean_energy]);
+        susc_array.append(&mut vec![susceptibility]);
+        heat_array.append(&mut vec![heat_capacity]);
+    }
+    // println!("Magnetizations: {}", mean_mag);
+    // println!("Mean energy: {}", mean_energy);
+    // println!("Magnetic susceptibility: {}", susceptibility);
+    // println!("Heat capacity: {}", heat_capacity);
 }
