@@ -17,9 +17,9 @@ fn float_mean(array: &[f64]) -> f64 {
 pub struct IsingModel {
     size: usize,
     temperature: f64,
+    h: f64,
     lattice: Vec<Vec<i32>>,
     beta: f64,
-    h: f64,
 }
 
 impl IsingModel {
