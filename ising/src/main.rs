@@ -25,9 +25,9 @@ fn increment_index(index: usize, size: usize) -> usize {
 }
 
 pub struct IsingModel {
-    size: usize,
-    temperature: f64,
-    h: f64,
+    pub size: usize,
+    pub temperature: f64,
+    pub h: f64,
     lattice: Vec<Vec<i32>>,
     beta: f64,
 }
