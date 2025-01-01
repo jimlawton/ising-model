@@ -14,6 +14,16 @@ fn float_mean(array: &[f64]) -> f64 {
     sum / (array.len() as f64)
 }
 
+/// Calculate the index of the previous element in a circular array.
+fn decrement_index(index: usize, size: usize) -> usize {
+    (index + size - 1) % size
+}
+
+/// Calculate the index of the next element in a circular array.
+fn increment_index(index: usize, size: usize) -> usize {
+    (index + 1) % size
+}
+
 pub struct IsingModel {
     size: usize,
     temperature: f64,
@@ -42,11 +52,15 @@ impl IsingModel {
     /// Calculate the change in energy if the spin at (i, j) is flipped.
     pub fn compute_delta_energy(&self, i: usize, j: usize) -> f64 {
         let spin = self.lattice[i][j];
-        let neighbors: i32 = self.lattice[(i + 1) % self.size][j]
-            + self.lattice[i][(j + 1) % self.size]
-            + self.lattice[(i - 1) % self.size][j]
-            + self.lattice[i][(j - 1) % self.size];
-        2 * spin * neighbors + 2.0 * self.h * (spin as f64)
+        let i_minus_1 = decrement_index(i, self.size);
+        let j_minus_1 = decrement_index(j, self.size);
+        let i_plus_1 = increment_index(i, self.size);
+        let j_plus_1 = increment_index(j, self.size);
+        let neighbors: i32 = self.lattice[i_plus_1][j]
+            + self.lattice[i][j_plus_1]
+            + self.lattice[i_minus_1][j]
+            + self.lattice[i][j_minus_1];
+        (2 * spin * neighbors) as f64 + 2.0 * self.h * (spin as f64)
     }
 
     /// Calculate the magnetization of the lattice.
