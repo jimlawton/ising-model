@@ -2,11 +2,13 @@ use rand::Rng; // Need the Rng trait.
 
 const NUM_SWEEPS: usize = 1500;
 
+/// Calculate the mean of an integer array.
 fn int_mean(array: &[i32]) -> f64 {
     let sum: i32 = array.iter().sum();
     sum as f64 / (array.len() as f64)
 }
 
+/// Calculate the mean of a float array.
 fn float_mean(array: &[f64]) -> f64 {
     let sum: f64 = array.iter().sum();
     sum / (array.len() as f64)
