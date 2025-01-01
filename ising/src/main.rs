@@ -35,17 +35,17 @@ pub struct IsingModel {
 impl IsingModel {
     /// Constructor.
     // NOTE: assumes a square lattice matrix.
-    pub fn new(size: usize, temperature: f64, h: f64) -> Self {
+    pub fn new(size: &usize, temperature: &f64, h: &f64) -> Self {
         let is_plus: bool = rand::random();
         let lattice_value = if is_plus { 1 } else { -1 };
-        let lattice = vec![vec![lattice_value; size]; size];
+        let lattice = vec![vec![lattice_value; *size]; *size];
         let beta = 1.0 / temperature;
         IsingModel {
-            size,
-            temperature,
+            size: *size,
+            temperature: *temperature,
+            h: *h,
             lattice,
             beta,
-            h,
         }
     }
 
@@ -139,8 +139,12 @@ impl IsingModel {
 }
 
 pub fn main() {
-    println!("Hello, world!");
-    let model = IsingModel::new(10, 2.0, 1.0);
+    println!("Ising model...");
+    let size = 10;
+    let temperature = 2.0;
+    let h = 1.0;
+    println!("Size: {}, Temperature: {}, h: {}", size, temperature, h);
+    let mut model = IsingModel::new(&size, &temperature, &h);
     let (exp_mag, exp_energy, mag_susc, heat_cap) = model.simulate(NUM_SWEEPS);
     println!("Expected magnetization: {}", exp_mag);
     println!("Expected energy: {}", exp_energy);
