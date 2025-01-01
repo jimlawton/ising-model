@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use rand::Rng; // Need the Rng trait.
 
 const NUM_SWEEPS: usize = 1500;
@@ -137,23 +139,37 @@ impl IsingModel {
     }
 }
 
+impl Display for IsingModel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "Size: {}", self.size)?;
+        writeln!(f, "Temperature: {} J", self.temperature)?;
+        writeln!(f, "h: {}", self.h)?;
+        writeln!(f, "Lattice:")?;
+        for i in 0..self.size {
+            for j in 0..self.size {
+                let spin = self.lattice[i][j];
+                let symbol = if spin == 1 { "+" } else { "-" };
+                write!(f, "{} ", symbol)?;
+            }
+            writeln!(f)?;
+        }
+        writeln!(f, "Number of spins: {}", self.size.pow(2))?;
+        writeln!(f, "Magnetization: {}", self.magnetization())?;
+        writeln!(f, "Energy: {} J", self.energy())?;
+        Ok(())
+    }
+}
+
 pub fn main() {
     println!("Ising model...");
     let size = 10;
     let temperature = 2.0;
     let h = 1.0;
-    println!("Size: {}", size);
-    println!("Temperature: {} J", temperature);
-    println!("h: {}", h);
-
     let mut model = IsingModel::new(&size, &temperature, &h);
+
+    println!("{}", model);
+
     let (mean_mag, mean_energy, susceptibility, heat_capacity) = model.simulate(NUM_SWEEPS);
-
-    println!("Number of spins: {}", model.size.pow(2));
-    println!("Number of sweeps: {}", NUM_SWEEPS);
-    println!("Magnetization: {}", model.magnetization());
-    println!("Energy: {} J", model.energy());
-
     println!("Mean magnetization: {}", mean_mag);
     println!("Mean energy: {}", mean_energy);
     println!("Magnetic susceptibility: {}", susceptibility);
