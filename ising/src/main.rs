@@ -178,11 +178,11 @@ pub fn main() {
 
     println!("{}", model);
 
-    let (mean_mag, mean_energy, susceptibility, heat_capacity) = model.simulate(NUM_SWEEPS);
-    println!("Mean magnetization: {}", mean_mag);
-    println!("Mean energy: {}", mean_energy);
-    println!("Magnetic susceptibility: {}", susceptibility);
-    println!("Heat capacity: {}", heat_capacity);
+    // let (mean_mag, mean_energy, susceptibility, heat_capacity) = model.simulate(NUM_SWEEPS);
+    // println!("Mean magnetization: {}", mean_mag);
+    // println!("Mean energy: {}", mean_energy);
+    // println!("Magnetic susceptibility: {}", susceptibility);
+    // println!("Heat capacity: {}", heat_capacity);
 
     // Determine how many sweeps were required for convergence.
     let mut mag_array = vec![];
