@@ -125,16 +125,15 @@ impl IsingModel {
             energies.append(&mut vec![energy]);
             energy_squares.append(&mut vec![energy.powf(2.0)]);
         }
-        let exp_mag = int_mean(&magnetizations);
-        let exp_magsquare = float_mean(&mag_squares);
-        let exp_energy = float_mean(&energies);
-        let exp_ensquare = float_mean(&energy_squares);
+        let mean_mag = int_mean(&magnetizations);
+        let mean_mag_sq = float_mean(&mag_squares);
+        let mean_energy = float_mean(&energies);
+        let mean_energy_sq = float_mean(&energy_squares);
+        let susceptibility = (mean_mag_sq - mean_mag.powf(2.0)) * self.beta;
+        let heat_capacity = (mean_energy_sq - mean_energy.powf(2.0)) * self.beta.powf(2.0)
+            / (self.size.pow(2) as f64);
 
-        let magnetic_susceptibility = (exp_magsquare - exp_mag.powf(2.0)) * self.beta;
-        let heat_capacity =
-            (exp_ensquare - exp_energy.powf(2.0)) * self.beta.powf(2.0) / (self.size.pow(2) as f64);
-
-        (exp_mag, exp_energy, magnetic_susceptibility, heat_capacity)
+        (mean_mag, mean_energy, susceptibility, heat_capacity)
     }
 }
 
