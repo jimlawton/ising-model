@@ -142,11 +142,20 @@ pub fn main() {
     let size = 10;
     let temperature = 2.0;
     let h = 1.0;
-    println!("Size: {}, Temperature: {}, h: {}", size, temperature, h);
+    println!("Size: {}", size);
+    println!("Temperature: {} J", temperature);
+    println!("h: {}", h);
+
     let mut model = IsingModel::new(&size, &temperature, &h);
-    let (exp_mag, exp_energy, mag_susc, heat_cap) = model.simulate(NUM_SWEEPS);
-    println!("Expected magnetization: {}", exp_mag);
-    println!("Expected energy: {}", exp_energy);
-    println!("Magnetic susceptibility: {}", mag_susc);
-    println!("Heat capacity: {}", heat_cap);
+    let (mean_mag, mean_energy, susceptibility, heat_capacity) = model.simulate(NUM_SWEEPS);
+
+    println!("Number of spins: {}", model.size.pow(2));
+    println!("Number of sweeps: {}", NUM_SWEEPS);
+    println!("Magnetization: {}", model.magnetization());
+    println!("Energy: {} J", model.energy());
+
+    println!("Mean magnetization: {}", mean_mag);
+    println!("Mean energy: {}", mean_energy);
+    println!("Magnetic susceptibility: {}", susceptibility);
+    println!("Heat capacity: {}", heat_capacity);
 }
