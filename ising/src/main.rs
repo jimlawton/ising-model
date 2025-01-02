@@ -200,5 +200,24 @@ pub fn main() {
             (mean_mag, mean_energy, susceptibility, heat_capacity),
         );
     }
-    println!("Output data: {:?}", data);
+    println!("\n\nOutput data:\n");
+    println!(
+        "{:<6}  {:<8} {:<9} {:<9} {:<6}",
+        "Sweeps", "Mag", "Energy", "Suscept", "Heat Cap"
+    );
+    for num_sweeps in &sweeps {
+        let row_data = data.get(num_sweeps).unwrap();
+        println!(
+            "{num_sweeps:>6}  {:>8.4} {:>9.4} {:>9.4} {:>7.4}",
+            row_data.0, row_data.1, row_data.2, row_data.3
+        );
+    }
+
+    println!("\n\nCSV data:\n");
+    let mut csv_writer = csv::Writer::from_writer(std::io::stdout());
+    for num_sweeps in &sweeps {
+        let row_data = data.get(num_sweeps).unwrap();
+        csv_writer.serialize((num_sweeps, row_data)).unwrap();
+    }
+    csv_writer.flush().unwrap();
 }
