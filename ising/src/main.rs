@@ -186,10 +186,11 @@ pub fn main() {
     // println!("Heat capacity: {}", heat_capacity);
 
     // Determine how many sweeps were required for convergence.
-    let sweeps: Vec<usize> = (100..=1000)
+    let mut sweeps: Vec<usize> = (100..=1000)
         .step_by(100)
         .chain((2000..=10000).step_by(1000))
         .collect();
+    sweeps.sort();
     let mut data: HashMap<usize, (f64, f64, f64, f64)> = HashMap::new();
     for num_sweeps in sweeps {
         println!("Simulating with {num_sweeps} sweeps...");
