@@ -3,7 +3,7 @@ use std::fmt::Display;
 
 use rand::Rng; // Need the Rng trait.
 
-const NUM_SWEEPS: usize = 15000;
+const MAX_SWEEPS: usize = 35000;
 
 /// Calculate the mean of an integer array.
 fn int_mean(array: &[i32]) -> f64 {
@@ -179,7 +179,7 @@ pub fn main() {
 
     println!("{}", model);
 
-    // let (mean_mag, mean_energy, susceptibility, heat_capacity) = model.simulate(NUM_SWEEPS);
+    // let (mean_mag, mean_energy, susceptibility, heat_capacity) = model.simulate(MAX_SWEEPS);
     // println!("Mean magnetization: {}", mean_mag);
     // println!("Mean energy: {}", mean_energy);
     // println!("Magnetic susceptibility: {}", susceptibility);
@@ -188,7 +188,7 @@ pub fn main() {
     // Determine how many sweeps were required for convergence.
     let mut sweeps: Vec<usize> = (100..=1000)
         .step_by(100)
-        .chain((2000..=10000).step_by(1000))
+        .chain((2000..=MAX_SWEEPS).step_by(1000))
         .collect();
     sweeps.sort();
     let mut data: HashMap<usize, (f64, f64, f64, f64)> = HashMap::new();
