@@ -192,7 +192,7 @@ pub fn main() {
         .collect();
     sweeps.sort();
     let mut data: HashMap<usize, (f64, f64, f64, f64)> = HashMap::new();
-    for num_sweeps in sweeps {
+    for &num_sweeps in &sweeps {
         println!("Simulating with {num_sweeps} sweeps...");
         let (mean_mag, mean_energy, susceptibility, heat_capacity) = model.simulate(num_sweeps);
         data.insert(
